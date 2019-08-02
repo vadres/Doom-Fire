@@ -2,9 +2,11 @@ import * as Grid from './grid.js';
 import * as Canvas from './canvas.js';
 import * as d3 from 'd3';
 
-const _DEBUG_ = true;
-const lins = 70;
-const cols = 50;
+/* Se true a aplicação vai ficar bem lenta, dependendo do tamanho do Grid */
+const _DEBUG_ = false;
+const lins = 60;
+const cols = 100;
+const framesPerSecond = 50;
 Grid.init(lins, cols);
 
 const start = () => {
@@ -14,7 +16,7 @@ const start = () => {
 
 const fireSource = () => {
   const newline = []
-  for (let i = 0; i < lins; i++) 
+  for (let i = 0; i < cols; i++) 
     newline[i] = 36;
   
   Grid.setLine(newline, lins);
@@ -24,8 +26,8 @@ const fireIntesityCalc = () => {
   for (let c = 0; c < cols; c++) {
     for (let l = 0; l < lins; l++) {
       if (l + 1 == lins) continue;
-      const value = Grid.getElUnder(l, c + Math.round(Math.random()));
-      Grid.set(l, c, value - Math.round(Math.random()) );
+      const value = Grid.getElUnder(l, c);
+      Grid.set(l, c + Math.round(Math.random()), value - Math.round(Math.random()) );
     }
   }
 }
@@ -45,7 +47,10 @@ const render = () => {
     d3.select("#tbl-debug").html("");
     renderDebug();
   }
-  requestAnimationFrame(render);
+
+  setTimeout(function() {
+    render();
+  }, 1000 / framesPerSecond);
 }
 
 const renderDebug = () => {

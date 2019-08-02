@@ -29,7 +29,7 @@ export const getElUnder = (x, y) => {
 
 export const setLine = (line, x) => {
   x--;
-  for (let i = 0; i < lins; i++){
+  for (let i = 0; i < cols; i++){
     grid[pos(x, i)] = line[i];
   }
 }
