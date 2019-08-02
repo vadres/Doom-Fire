@@ -1,0 +1,25 @@
+{
+  "name": "doomfire",
+  "version": "1.0.0",
+  "description": "fire doom game pixel art",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --inline --hot --color"
+  },
+  "keywords": [
+    "fire",
+    "doom",
+    "game",
+    "pixel",
+    "art"
+  ],
+  "author": "Victor Vadres",
+  "license": "ISC",
+  "dependencies": {
+    "d3": "^5.9.7",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2"
+  }
+}
