@@ -2,7 +2,10 @@ import * as Grid from './grid.js';
 import * as Canvas from './canvas.js';
 import * as d3 from 'd3';
 
-/* Se true a aplicação vai ficar bem lenta, dependendo do tamanho do Grid */
+/* 
+ * Se true a aplicação vai ficar bem lenta, 
+ * dependendo do tamanho do Grid 
+ */
 const _DEBUG_ = false;
 const lins = 60;
 const cols = 100;
@@ -12,6 +15,10 @@ Grid.init(lins, cols);
 const start = () => {
   fireSource();
   render();
+  
+  if (_DEBUG_) {
+    renderDebug();
+  }
 }
 
 const fireSource = () => {
@@ -43,17 +50,15 @@ const render = () => {
       });
     }
   }
-  if (_DEBUG_) {
-    d3.select("#tbl-debug").html("");
-    renderDebug();
-  }
-
+  
   setTimeout(function() {
     render();
   }, 1000 / framesPerSecond);
 }
 
 const renderDebug = () => {
+  d3.select("#tbl-debug").html("");
+
   const arr = [];
   for (let l = 0; l < lins; l++) {
     arr[l] = []
@@ -61,16 +66,21 @@ const renderDebug = () => {
       arr[l][c] = Grid.get(l, c); 
     }
   }
+
   const tr = d3.select("#tbl-debug")
-               .selectAll("tr")
-               .data(arr)
-               .enter()
-               .append("tr");
+              .selectAll("tr")
+              .data(arr)
+              .enter()
+              .append("tr");
 
   const td = tr.selectAll("td")
-               .data(function(d, i) { return d; })
-               .enter().append("td")
-               .text(function(d) { return d; });             
+              .data(function(d, i) { return d; })
+              .enter().append("td")
+              .text(function(d) { return d; });       
+  
+  setTimeout(function() {
+    renderDebug();
+  }, 500);    
 }
 
 start();
